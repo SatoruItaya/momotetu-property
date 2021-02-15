@@ -9,8 +9,17 @@ def gen_propery_csv():
 
     soup = get_bs(home_url)
 
-    property_info = soup.find_all("table", class_="a-table a-table a-table")
-    print(property_info)
+    region_list = soup.find_all("table", class_="a-table a-table a-table")
+
+    property_station_list = []
+
+    for region in region_list:
+
+        property_station_list += region.find_all("tr")[1:]
+
+       # for property_station in property_station_list:
+
+    print(property_station_list)
 
 
 def get_bs(url):
