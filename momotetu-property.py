@@ -15,7 +15,7 @@ def gen_propery_csv():
 
     # Definition of Lists for CSV
     monopoly_info_list = []
-    monopoly_info_header = ["地方", "駅名", "読み(ひらがな)", "独占価格", "独占後収益額"]
+    monopoly_info_header = ["地方", "駅名", "読み(ひらがな)", "独占価格", "独占後収益額", "収益率"]
     monopoly_info_list.append(monopoly_info_header)
 
     property_info_list = []
@@ -45,6 +45,7 @@ def gen_propery_csv():
             # 独占後収益額
             monopoly_info_record.insert(4, basic_info_table.find_all("td")[2].text)
             # TODO 収益率
+            monopoly_info_record.insert(5, property_station.find_all("td")[3].text)
 
             monopoly_info_list.append(monopoly_info_record)
 
@@ -72,6 +73,8 @@ def gen_propery_csv():
                 property_info_record.insert(6, property_info.find_all("td")[4].text)
 
                 property_info_list.append(property_info_record)
+
+            break
 
     # CSV処理
     with open('monopoly_info.csv', 'w') as f:
