@@ -25,7 +25,6 @@ def gen_propery_csv():
     for region in region_table:
 
         property_station_list = region.find_all("tr")[1:]
-        # print(property_station_list)
 
         for property_station in property_station_list:
 
@@ -47,7 +46,7 @@ def gen_propery_csv():
             monopoly_info_record.insert(4, basic_info_table.find_all("td")[2].text)
             # TODO 収益率
 
-            monopoly_info_list.append(monopoly_info_record.insert)
+            monopoly_info_list.append(monopoly_info_record)
 
             property_info_table = station_soup.find_all("table", class_="a-table a-table a-table")[1]
             property_num = len(property_info_table.find_all("tr")) - 1
@@ -74,18 +73,14 @@ def gen_propery_csv():
 
                 property_info_list.append(property_info_record)
 
-            print(property_info_list)
-
     # CSV処理
-    # with open('monopoly_info.csv', 'w') as f:
-    #    writer = csv.writer(f)
-    #    for station in monopoly_info_list:
-    #        writer.writerow(station)
+    with open('monopoly_info.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerows(monopoly_info_list)
 
-    # with open('property_info.csv', 'w') as f:
-    #    writer = csv.writer(f)
-    #    for station in property_info_list:
-    #        writer.writerow(station)
+    with open('property_info.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerows(property_info_list)
 
 
 def get_bs(url):
