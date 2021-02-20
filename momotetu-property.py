@@ -44,7 +44,7 @@ def gen_propery_csv():
             monopoly_info_record.insert(3, basic_info_table.find_all("td")[1].text)
             # 独占後収益額
             monopoly_info_record.insert(4, basic_info_table.find_all("td")[2].text)
-            # TODO 収益率
+            # 収益率
             monopoly_info_record.insert(5, property_station.find_all("td")[3].text)
 
             monopoly_info_list.append(monopoly_info_record)
@@ -73,8 +73,6 @@ def gen_propery_csv():
                 property_info_record.insert(6, property_info.find_all("td")[4].text)
 
                 property_info_list.append(property_info_record)
-
-            break
 
     # CSV処理
     with open('monopoly_info.csv', 'w') as f:
