@@ -15,7 +15,7 @@ def gen_propery_csv():
 
     # Definition of Lists for CSV
     monopoly_info_list = []
-    monopoly_info_header = ["地方", "駅名", "読み(ひらがな)", "独占価格", "独占後収益額", "収益率"]
+    monopoly_info_header = ["地方", "駅名", "読み(ひらがな)", "独占価格", "独占後収益額", "収益率", "URL"]
     monopoly_info_list.append(monopoly_info_header)
 
     property_info_list = []
@@ -29,7 +29,8 @@ def gen_propery_csv():
         for property_station in property_station_list:
 
             station_page_anchor = property_station.find("a")
-            station_soup = get_bs(station_page_anchor.get("href"))
+            station_page_link = station_page_anchor.get("href")
+            station_soup = get_bs(station_page_link)
 
             basic_info_table = station_soup.find_all("table", class_="a-table a-table a-table")[0]
 
@@ -46,6 +47,8 @@ def gen_propery_csv():
             monopoly_info_record.insert(4, basic_info_table.find_all("td")[2].text)
             # 収益率
             monopoly_info_record.insert(5, property_station.find_all("td")[3].text)
+            # URL
+            monopoly_info_record.insert(6, station_page_link)
 
             monopoly_info_list.append(monopoly_info_record)
 
