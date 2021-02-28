@@ -117,7 +117,7 @@ def transform_to_million_units(kanji_price_yen):
 
     ten_thousand_place = kanji_price.find("万")
 
-    # contains "万"
+    # contain "万"
     if ten_thousand_place > -1:
         ten_thousand = kanji_price[billion_place + 1:ten_thousand_place]
         million_units += int(ten_thousand) / 100
