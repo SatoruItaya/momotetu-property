@@ -78,8 +78,6 @@ def gen_propery_csv():
 
                 property_info_list.append(property_info_record)
 
-            print(monopoly_info_list)
-
     # CSV処理
     with open('monopoly_info.csv', 'w') as f:
         writer = csv.writer(f)
@@ -103,21 +101,28 @@ def transform_to_million_units(kanji_price_yen):
 
     million_units = 0
 
-    million_place = kanji_price.find("億")
+    trillion_place = kanji_price.find("兆")
+
+    # contain "兆"
+    if trillion_place > -1:
+        trillion = kanji_price[:trillion_place]
+        million_units += int(trillion) * 1000000
+
+    billion_place = kanji_price.find("億")
 
     # contain "億"
-    if million_place > -1:
-        million = kanji_price[:million_place]
-        million_units += int(million) * 100
+    if billion_place > -1:
+        billion = kanji_price[trillion_place + 1:billion_place]
+        million_units += int(billion) * 100
 
     ten_thousand_place = kanji_price.find("万")
 
     # contains "万"
     if ten_thousand_place > -1:
-        ten_thousand = kanji_price[million_place + 1:ten_thousand_place]
+        ten_thousand = kanji_price[billion_place + 1:ten_thousand_place]
         million_units += int(ten_thousand) / 100
 
-    return million_units
+    return "%g" % million_units
 
 
 if __name__ == "__main__":
