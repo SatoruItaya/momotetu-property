@@ -15,11 +15,11 @@ def gen_propery_csv():
 
     # Definition of Lists for CSV
     monopoly_info_list = []
-    monopoly_info_header = ["地方", "駅名", "読み(ひらがな)", "独占価格(百万)", "独占後収益額(百万)", "収益率", "URL"]
+    monopoly_info_header = ["地方", "駅名", "読み(ひらがな)", "独占価格(百万)", "独占後収益額(百万)", "収益率(%)", "URL"]
     monopoly_info_list.append(monopoly_info_header)
 
     property_info_list = []
-    property_info_header = ["地方", "駅名", "物件名", "タイプ", "価格(百万)", "収益率", "収益額(百万)"]
+    property_info_header = ["地方", "駅名", "物件名", "タイプ", "価格(百万)", "収益率(%)", "収益額(百万)"]
     property_info_list.append(property_info_header)
 
     for region in region_table:
@@ -41,12 +41,12 @@ def gen_propery_csv():
             monopoly_info_record.insert(1, property_station.find_all("td")[0].text)
             # 読み(ひらがな)
             monopoly_info_record.insert(2, basic_info_table.find_all("td")[4].text)
-            # 独占価格 #TODO 変換
+            # 独占価格
             monopoly_info_record.insert(3, transform_to_million_units(basic_info_table.find_all("td")[1].text))
-            # 独占後収益額 #TODO 変換
+            # 独占後収益額
             monopoly_info_record.insert(4, transform_to_million_units(basic_info_table.find_all("td")[2].text))
             # 収益率
-            monopoly_info_record.insert(5, property_station.find_all("td")[3].text)
+            monopoly_info_record.insert(5, property_station.find_all("td")[3].text.replace("%", ""))
             # URL
             monopoly_info_record.insert(6, station_page_link)
             # TODO event
@@ -69,11 +69,11 @@ def gen_propery_csv():
                 property_info_record.insert(2, property_info.find_all("td")[0].text)
                 # タイプ
                 property_info_record.insert(3, property_info.find_all("td")[1].text)
-                # 価格 #TODO 変換
+                # 価格
                 property_info_record.insert(4, transform_to_million_units(property_info.find_all("td")[2].text))
                 # 収益率
-                property_info_record.insert(5, property_info.find_all("td")[3].text)
-                # 収益額# TODO 変換
+                property_info_record.insert(5, property_info.find_all("td")[3].text.replace("%", ""))
+                # 収益額
                 property_info_record.insert(6, transform_to_million_units(property_info.find_all("td")[4].text))
 
                 property_info_list.append(property_info_record)
