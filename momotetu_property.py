@@ -72,7 +72,7 @@ def gen_propery_csv():
                 # 価格
                 property_info_record.insert(4, transform_to_million_units(property_info.find_all("td")[2].text))
                 # 収益率
-                property_info_record.insert(5, property_info.find_all("td")[3].text.replace("%", ""))
+                property_info_record.insert(5, property_info.find_all("td")[3].text.replace("%", "").replace("％", ""))
                 # 収益額
                 property_info_record.insert(6, transform_to_million_units(property_info.find_all("td")[4].text))
 
